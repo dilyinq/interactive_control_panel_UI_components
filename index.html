@@ -135,7 +135,6 @@
 <body>
 
 <div id="app">
-  <!-- LOGIN SCREEN -->
   <div v-if="!isLoggedIn" class="container login-screen">
     <div class="card login-card">
       <div style="font-size: 64px;">✨</div>
@@ -155,7 +154,6 @@
     </div>
   </div>
 
-  <!-- MAIN APP -->
   <div class="container" v-else @click="closeAllDropdowns">
     <div class="header">
       <div class="logo">Celestial ✨</div>
@@ -177,7 +175,6 @@
           </div>
         </div>
 
-        <!-- NOTIFICATIONS -->
         <div class="icon-wrapper" @click.stop>
           <div class="icon-btn" @click="toggleDropdown('notif')" style="position: relative;">
             ⩍
@@ -196,7 +193,6 @@
           </div>
         </div>
 
-        <!-- ACCOUNT -->
         <div class="icon-wrapper" @click.stop>
           <div class="icon-btn" @click="toggleDropdown('account')">{{ currentSign.symbol }}</div>
           <div class="dropdown" v-if="showAccount">
@@ -209,7 +205,6 @@
       </div>
     </div>
 
-    <!-- SCREEN 1: DASHBOARD -->
     <div class="screen" :class="{ active: activeScreen === 'dashboard' }">
       <h1 class="greeting">Привет, {{ currentSign.nameRu }} {{ currentSign.symbol }}</h1>
       <div class="stats-row">
@@ -268,7 +263,6 @@
       </div>
     </div>
 
-    <!-- SCREEN 2: SIGNS -->
     <div class="screen" :class="{ active: activeScreen === 'signs' }">
       <h1 class="greeting">Все знаки зодиака</h1>
       <div class="nav" style="margin-bottom: 20px;">
@@ -283,7 +277,6 @@
       </div>
     </div>
 
-    <!-- SCREEN 3: COMPATIBILITY -->
     <div class="screen" :class="{ active: activeScreen === 'compatibility' }">
       <h1 class="greeting">Совместимость знаков</h1>
       <div class="content-grid-3">
@@ -307,7 +300,6 @@
       </div>
     </div>
 
-    <!-- SCREEN 4: HISTORY -->
     <div class="screen" :class="{ active: activeScreen === 'history' }">
       <h1 class="greeting">История гороскопов</h1>
       <div class="card">
@@ -320,7 +312,6 @@
       </div>
     </div>
 
-    <!-- SCREEN 5: SETTINGS -->
     <div class="screen" :class="{ active: activeScreen === 'settings' }">
       <h1 class="greeting">Настройки</h1>
       <div class="card" style="margin-bottom: 20px;">
@@ -338,7 +329,6 @@
       </div>
     </div>
 
-    <!-- SCREEN 6: ABOUT -->
     <div class="screen" :class="{ active: activeScreen === 'about' }">
       <h1 class="greeting">О Celestial</h1>
       <div class="card card-dark" style="text-align: center; margin-bottom: 20px;">
@@ -362,7 +352,6 @@
 
   createApp({
     setup() {
-      // --- UI STATE ---
       const activeScreen = ref('dashboard');
       const isLoggedIn = ref(false);
       const birthDate = ref('');
@@ -373,7 +362,6 @@
       const searchQuery = ref('');
       const notificationsEnabled = ref(true);
 
-      // --- DATA ---
       const screens = [
         { id: 'dashboard', label: 'Главная' }, { id: 'signs', label: 'Знаки' },
         { id: 'compatibility', label: 'Совместимость' }, { id: 'history', label: 'История' },
@@ -418,22 +406,18 @@
         { icon: '🌐︎', title: 'API интеграция', desc: 'Free Horoscope API для актуальных данных' },
       ];
 
-      // --- DASHBOARD STATE ---
       const selectedSign = ref('pisces');
       const horoscope = ref('');
       const horoscopeDate = ref('');
       const loading = ref(true);
       
-      // --- SIGNS STATE ---
       const filter = ref('all');
       const selectedDetail = ref(null);
 
-      // --- COMPATIBILITY STATE ---
       const sign1 = ref('pisces');
       const sign2 = ref('libra');
       const result = ref(null);
-
-      // --- COMPUTED ---
+      
       const currentSign = computed(() => zodiacSigns.find(s => s.name === selectedSign.value));
       const filteredSigns = computed(() => filter.value === 'all' ? zodiacSigns : zodiacSigns.filter(s => s.element === filter.value));
       const unreadCount = computed(() => notifications.value.filter(n => !n.read).length);
@@ -444,7 +428,6 @@
         return zodiacSigns.filter(s => s.nameRu.toLowerCase().includes(q) || s.name.toLowerCase().includes(q));
       });
 
-      // --- METHODS ---
       const detectSign = () => {
         if (!birthDate.value) {
           detectedSign.value = null;
@@ -532,7 +515,6 @@
         result.value = { score };
       };
 
-      // --- CHARTS ---
       const lineChartRef = ref(null);
       const doughnutChartRef = ref(null);
 
