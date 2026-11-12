@@ -137,7 +137,7 @@
 <div id="app">
   <div v-if="!isLoggedIn" class="container login-screen">
     <div class="card login-card">
-      <div style="font-size: 64px;">✨</div>
+      <div style="font-size: 64px;"></div>
       <h2 style="margin: 20px 0; font-weight: 300; font-size: 28px;">Добро пожаловать в Celestial</h2>
       <p style="color: #666; margin-bottom: 20px; line-height: 1.5;">Укажите дату рождения, чтобы узнать ваш знак зодиака и получить персональный гороскоп.</p>
       
@@ -369,24 +369,24 @@
       ];
 
       const zodiacSigns = [
-        { name: 'aries', nameRu: 'Овен', symbol: '♈', dates: '21 мар – 19 апр', element: 'Огонь', start: [3, 21], end: [4, 19] },
-        { name: 'taurus', nameRu: 'Телец', symbol: '♉', dates: '20 апр – 20 май', element: 'Земля', start: [4, 20], end: [5, 20] },
-        { name: 'gemini', nameRu: 'Близнецы', symbol: '♊', dates: '21 май – 20 июн', element: 'Воздух', start: [5, 21], end: [6, 20] },
-        { name: 'cancer', nameRu: 'Рак', symbol: '♋', dates: '21 июн – 22 июл', element: 'Вода', start: [6, 21], end: [7, 22] },
-        { name: 'leo', nameRu: 'Лев', symbol: '♌', dates: '23 июл – 22 авг', element: 'Огонь', start: [7, 23], end: [8, 22] },
-        { name: 'virgo', nameRu: 'Дева', symbol: '', dates: '23 авг – 22 сен', element: 'Земля', start: [8, 23], end: [9, 22] },
-        { name: 'libra', nameRu: 'Весы', symbol: '', dates: '23 сен – 22 окт', element: 'Воздух', start: [9, 23], end: [10, 22] },
-        { name: 'scorpio', nameRu: 'Скорпион', symbol: '♏', dates: '23 окт – 21 ноя', element: 'Вода', start: [10, 23], end: [11, 21] },
-        { name: 'sagittarius', nameRu: 'Стрелец', symbol: '♐', dates: '22 ноя – 21 дек', element: 'Огонь', start: [11, 22], end: [12, 21] },
-        { name: 'capricorn', nameRu: 'Козерог', symbol: '♑', dates: '22 дек – 19 янв', element: 'Земля', start: [12, 22], end: [1, 19] },
-        { name: 'aquarius', nameRu: 'Водолей', symbol: '♒', dates: '20 янв – 18 фев', element: 'Воздух', start: [1, 20], end: [2, 18] },
-        { name: 'pisces', nameRu: 'Рыбы', symbol: '♓', dates: '19 фев – 20 мар', element: 'Вода', start: [2, 19], end: [3, 20] },
+        { name: 'aries', nameRu: 'Овен', symbol:, dates: '21 мар – 19 апр', element: 'Огонь', start: [3, 21], end: [4, 19] },
+        { name: 'taurus', nameRu: 'Телец', symbol:, dates: '20 апр – 20 май', element: 'Земля', start: [4, 20], end: [5, 20] },
+        { name: 'gemini', nameRu: 'Близнецы', symbol:, dates: '21 май – 20 июн', element: 'Воздух', start: [5, 21], end: [6, 20] },
+        { name: 'cancer', nameRu: 'Рак', symbol:, dates: '21 июн – 22 июл', element: 'Вода', start: [6, 21], end: [7, 22] },
+        { name: 'leo', nameRu: 'Лев', symbol: , dates: '23 июл – 22 авг', element: 'Огонь', start: [7, 23], end: [8, 22] },
+        { name: 'virgo', nameRu: 'Дева', symbol:, dates: '23 авг – 22 сен', element: 'Земля', start: [8, 23], end: [9, 22] },
+        { name: 'libra', nameRu: 'Весы', symbol:, dates: '23 сен – 22 окт', element: 'Воздух', start: [9, 23], end: [10, 22] },
+        { name: 'scorpio', nameRu: 'Скорпион', symbol:', dates: '23 окт – 21 ноя', element: 'Вода', start: [10, 23], end: [11, 21] },
+        { name: 'sagittarius', nameRu: 'Стрелец', symbol:, dates: '22 ноя – 21 дек', element: 'Огонь', start: [11, 22], end: [12, 21] },
+        { name: 'capricorn', nameRu: 'Козерог', symbol:, dates: '22 дек – 19 янв', element: 'Земля', start: [12, 22], end: [1, 19] },
+        { name: 'aquarius', nameRu: 'Водолей', symbol:', dates: '20 янв – 18 фев', element: 'Воздух', start: [1, 20], end: [2, 18] },
+        { name: 'pisces', nameRu: 'Рыбы', symbol:, dates: '19 фев – 20 мар', element: 'Вода', start: [2, 19], end: [3, 20] },
       ];
 
       const notifications = ref([
-        { id: 1, text: '✶ Новый гороскоп готов!', time: '2 мин назад', read: false },
-        { id: 2, text: '💫 Проверьте совместимость', time: '1 час назад', read: false },
-        { id: 3, text: '✨ Ретроград Меркурия', time: '3 часа назад', read: true },
+        { id: 1, text: 'Новый гороскоп готов!', time: '2 мин назад', read: false },
+        { id: 2, text: 'Проверьте совместимость', time: '1 час назад', read: false },
+        { id: 3, text: 'Ретроград Меркурия', time: '3 часа назад', read: true },
       ]);
 
       const stats = [{ label: 'Любовь', value: 85 }, { label: 'Карьера', value: 72 }, { label: 'Здоровье', value: 90 }, { label: 'Удача', value: 68 }];
@@ -483,7 +483,7 @@
         }
       };
 
-      const getMoodEmoji = (m) => m === 'positive' ? '☻' : m === 'negative' ? '☹' : m === 'warning' ? '⚠︎' : '😐';
+      const getMoodEmoji = (m) => m === 'positive' ? '☻' : m === 'negative' ? '☹' : m === 'warning' ? '⚠︎' : '☹';
       
       const getResultText = (score) => {
         if (score >= 80) return 'Идеальная пара ❤︎';
