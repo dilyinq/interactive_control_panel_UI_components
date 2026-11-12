@@ -144,7 +144,7 @@
       <input type="date" class="date-input" v-model="birthDate" @change="detectSign">
       
       <div v-if="detectedSign" class="detected-sign">
-        Ваш знак зодиака: <strong>{{ detectedSign.symbol }} {{ detectedSign.nameRu }}</strong>
+        Ваш знак зодиака: <strong>{{ detectedSign.nameRu }}</strong>
         <div style="margin-top: 5px;">{{ detectedSign.dates }} • {{ detectedSign.element }}</div>
       </div>
       
@@ -168,7 +168,7 @@
           <div class="dropdown" v-if="showSearch">
             <input type="text" class="search-input" placeholder="Поиск знака зодиака..." v-model="searchQuery" @click.stop>
             <div class="dropdown-item" v-for="res in searchResults" :key="res.name" @click="selectSearchResult(res.name)">
-              {{ res.symbol }} {{ res.nameRu }} <span style="color:#999; font-size:12px;">({{ res.element }})</span>
+              {{ res.nameRu }} <span style="color:#999; font-size:12px;">({{ res.element }})</span>
             </div>
             <div class="dropdown-empty" v-if="searchQuery && searchResults.length === 0">Ничего не найдено</div>
             <div class="dropdown-empty" v-if="!searchQuery">Начните вводить название...</div>
@@ -194,9 +194,9 @@
         </div>
 
         <div class="icon-wrapper" @click.stop>
-          <div class="icon-btn" @click="toggleDropdown('account')">{{ currentSign.symbol }}</div>
+          <div class="icon-btn" @click="toggleDropdown('account')">{{ currentSign.nameRu.substring(0, 2) }}</div>
           <div class="dropdown" v-if="showAccount">
-            <div class="dropdown-header">{{ currentSign.symbol }} {{ currentSign.nameRu }}</div>
+            <div class="dropdown-header">{{ currentSign.nameRu }}</div>
             <div class="dropdown-item" style="color: #666; font-size: 13px;">Дата рождения: {{ birthDate }}</div>
             <div class="dropdown-item" style="color: #666; font-size: 13px;">Pro план • Бесплатно</div>
             <div class="dropdown-item danger" @click="logout">Выйти из аккаунта</div>
@@ -206,7 +206,7 @@
     </div>
 
     <div class="screen" :class="{ active: activeScreen === 'dashboard' }">
-      <h1 class="greeting">Привет, {{ currentSign.nameRu }} {{ currentSign.symbol }}</h1>
+      <h1 class="greeting">Привет, {{ currentSign.nameRu }}</h1>
       <div class="stats-row">
         <div class="stat-group" v-for="stat in stats" :key="stat.label">
           <div class="stat-label">{{ stat.label }}</div>
@@ -221,7 +221,6 @@
 
       <div class="zodiac-grid">
         <div v-for="sign in zodiacSigns" :key="sign.name" :class="['zodiac-card', { selected: selectedSign === sign.name }]" @click="selectedSign = sign.name">
-          <div class="zodiac-symbol">{{ sign.symbol }}</div>
           <div class="zodiac-name">{{ sign.nameRu }}</div>
           <div class="zodiac-dates">{{ sign.dates }}</div>
         </div>
@@ -230,7 +229,7 @@
       <div class="content-grid">
         <div class="card card-dark" style="grid-column: span 2;">
           <div class="card-header"><div class="card-title">Гороскоп на сегодня</div></div>
-          <div style="font-size: 13px; opacity: 0.7; margin-bottom: 15px;">{{ currentSign.symbol }} {{ currentSign.nameRu }} • {{ horoscopeDate || '...' }} • {{ currentSign.element }}</div>
+          <div style="font-size: 13px; opacity: 0.7; margin-bottom: 15px;">{{ currentSign.nameRu }} • {{ horoscopeDate || '...' }} • {{ currentSign.element }}</div>
           <div v-if="loading" style="opacity: 0.8;">Загрузка гороскопа...</div>
           <div v-else style="line-height: 1.6;">{{ horoscope }}</div>
         </div>
@@ -270,7 +269,6 @@
       </div>
       <div class="zodiac-grid">
         <div v-for="sign in filteredSigns" :key="sign.name" :class="['zodiac-card', { selected: selectedDetail === sign.name }]" @click="selectedDetail = selectedDetail === sign.name ? null : sign.name">
-          <div class="zodiac-symbol">{{ sign.symbol }}</div>
           <div class="zodiac-name">{{ sign.nameRu }}</div>
           <div class="zodiac-dates">{{ sign.dates }}</div>
         </div>
@@ -282,15 +280,15 @@
       <div class="content-grid-3">
         <div class="card">
           <select class="custom-select" v-model="sign1" @change="result = null">
-            <option v-for="s in zodiacSigns" :key="s.name" :value="s.name">{{ s.symbol }} {{ s.nameRu }}</option>
+            <option v-for="s in zodiacSigns" :key="s.name" :value="s.name">{{ s.nameRu }}</option>
           </select>
         </div>
         <div class="card" style="display: flex; align-items: center; justify-content: center;">
-          <button class="btn-dark" @click="calculateCompat">❤︎ Рассчитать</button>
+          <button class="btn-dark" @click="calculateCompat"> Рассчитать</button>
         </div>
         <div class="card">
           <select class="custom-select" v-model="sign2" @change="result = null">
-            <option v-for="s in zodiacSigns" :key="s.name" :value="s.name">{{ s.symbol }} {{ s.nameRu }}</option>
+            <option v-for="s in zodiacSigns" :key="s.name" :value="s.name">{{ s.nameRu }}</option>
           </select>
         </div>
       </div>
@@ -306,7 +304,7 @@
         <div class="timeline">
           <div v-for="(item, i) in historyData" :key="i" class="timeline-item">
             <div :class="['timeline-time', { active: i === 0 }]">{{ item.day }} {{ item.date }}</div>
-            <div class="timeline-content"><div style="font-size: 14px; font-weight: 600;">{{ currentSign.symbol }} {{ getMoodEmoji(item.mood) }} {{ item.text }}</div></div>
+            <div class="timeline-content"><div style="font-size: 14px; font-weight: 600;">{{ getMoodEmoji(item.mood) }} {{ item.text }}</div></div>
           </div>
         </div>
       </div>
@@ -318,7 +316,7 @@
         <div style="font-weight: 600; margin-bottom: 10px;">Ваш знак зодиака</div>
         <div style="font-size: 14px; color: #666; margin-bottom: 15px;">Можно изменить, если нужно</div>
         <select class="custom-select" v-model="selectedSign">
-          <option v-for="s in zodiacSigns" :key="s.name" :value="s.name">{{ s.symbol }} {{ s.nameRu }} ({{ s.dates }})</option>
+          <option v-for="s in zodiacSigns" :key="s.name" :value="s.name">{{ s.nameRu }} ({{ s.dates }})</option>
         </select>
       </div>
       <div class="card">
@@ -332,13 +330,11 @@
     <div class="screen" :class="{ active: activeScreen === 'about' }">
       <h1 class="greeting">О Celestial</h1>
       <div class="card card-dark" style="text-align: center; margin-bottom: 20px;">
-        <div style="font-size: 48px;"></div>
         <div style="font-size: 24px; font-weight: 600; margin: 10px 0;">Celestial Horoscope</div>
         <div style="opacity: 0.8;">Ваш персональный астрологический помощник.</div>
       </div>
       <div class="features-grid">
         <div v-for="f in features" :key="f.title" class="feature-card">
-          <div class="feature-icon">{{ f.icon }}</div>
           <div class="feature-title">{{ f.title }}</div>
           <div class="feature-desc">{{ f.desc }}</div>
         </div>
@@ -369,18 +365,18 @@
       ];
 
       const zodiacSigns = [
-        { name: 'aries', nameRu: 'Овен', symbol:, dates: '21 мар – 19 апр', element: 'Огонь', start: [3, 21], end: [4, 19] },
-        { name: 'taurus', nameRu: 'Телец', symbol:, dates: '20 апр – 20 май', element: 'Земля', start: [4, 20], end: [5, 20] },
-        { name: 'gemini', nameRu: 'Близнецы', symbol:, dates: '21 май – 20 июн', element: 'Воздух', start: [5, 21], end: [6, 20] },
-        { name: 'cancer', nameRu: 'Рак', symbol:, dates: '21 июн – 22 июл', element: 'Вода', start: [6, 21], end: [7, 22] },
-        { name: 'leo', nameRu: 'Лев', symbol: , dates: '23 июл – 22 авг', element: 'Огонь', start: [7, 23], end: [8, 22] },
-        { name: 'virgo', nameRu: 'Дева', symbol:, dates: '23 авг – 22 сен', element: 'Земля', start: [8, 23], end: [9, 22] },
-        { name: 'libra', nameRu: 'Весы', symbol:, dates: '23 сен – 22 окт', element: 'Воздух', start: [9, 23], end: [10, 22] },
-        { name: 'scorpio', nameRu: 'Скорпион', symbol:', dates: '23 окт – 21 ноя', element: 'Вода', start: [10, 23], end: [11, 21] },
-        { name: 'sagittarius', nameRu: 'Стрелец', symbol:, dates: '22 ноя – 21 дек', element: 'Огонь', start: [11, 22], end: [12, 21] },
-        { name: 'capricorn', nameRu: 'Козерог', symbol:, dates: '22 дек – 19 янв', element: 'Земля', start: [12, 22], end: [1, 19] },
-        { name: 'aquarius', nameRu: 'Водолей', symbol:', dates: '20 янв – 18 фев', element: 'Воздух', start: [1, 20], end: [2, 18] },
-        { name: 'pisces', nameRu: 'Рыбы', symbol:, dates: '19 фев – 20 мар', element: 'Вода', start: [2, 19], end: [3, 20] },
+        { name: 'aries', nameRu: 'Овен', dates: '21 мар – 19 апр', element: 'Огонь', start: [3, 21], end: [4, 19] },
+        { name: 'taurus', nameRu: 'Телец', dates: '20 апр – 20 май', element: 'Земля', start: [4, 20], end: [5, 20] },
+        { name: 'gemini', nameRu: 'Близнецы', dates: '21 май – 20 июн', element: 'Воздух', start: [5, 21], end: [6, 20] },
+        { name: 'cancer', nameRu: 'Рак', dates: '21 июн – 22 июл', element: 'Вода', start: [6, 21], end: [7, 22] },
+        { name: 'leo', nameRu: 'Лев', dates: '23 июл – 22 авг', element: 'Огонь', start: [7, 23], end: [8, 22] },
+        { name: 'virgo', nameRu: 'Дева', dates: '23 авг – 22 сен', element: 'Земля', start: [8, 23], end: [9, 22] },
+        { name: 'libra', nameRu: 'Весы', dates: '23 сен – 22 окт', element: 'Воздух', start: [9, 23], end: [10, 22] },
+        { name: 'scorpio', nameRu: 'Скорпион', dates: '23 окт – 21 ноя', element: 'Вода', start: [10, 23], end: [11, 21] },
+        { name: 'sagittarius', nameRu: 'Стрелец', dates: '22 ноя – 21 дек', element: 'Огонь', start: [11, 22], end: [12, 21] },
+        { name: 'capricorn', nameRu: 'Козерог', dates: '22 дек – 19 янв', element: 'Земля', start: [12, 22], end: [1, 19] },
+        { name: 'aquarius', nameRu: 'Водолей', dates: '20 янв – 18 фев', element: 'Воздух', start: [1, 20], end: [2, 18] },
+        { name: 'pisces', nameRu: 'Рыбы', dates: '19 фев – 20 мар', element: 'Вода', start: [2, 19], end: [3, 20] },
       ];
 
       const notifications = ref([
@@ -398,12 +394,12 @@
       ];
       const elements = ['all', 'Огонь', 'Земля', 'Воздух', 'Вода'];
       const features = [
-        { icon: '🗓', title: 'Ежедневные гороскопы', desc: 'Точные прогнозы на каждый день для всех 12 знаков зодиака' },
-        { icon: '❤︎', title: 'Совместимость', desc: 'Проверьте совместимость с партнёром по знаку зодиака' },
-        { icon: '◔', title: 'Аналитика', desc: 'Отслеживайте тренды настроения и энергии' },
-        { icon: '⩍', title: 'Уведомления', desc: 'Получайте ежедневные напоминания о гороскопах' },
-        { icon: '🀆', title: 'Адаптивный дизайн', desc: 'Работает на всех устройствах' },
-        { icon: '🌐︎', title: 'API интеграция', desc: 'Free Horoscope API для актуальных данных' },
+        {title: 'Ежедневные гороскопы', desc: 'Точные прогнозы на каждый день для всех 12 знаков зодиака' },
+        {title: 'Совместимость', desc: 'Проверьте совместимость с партнёром по знаку зодиака' },
+        {title: 'Аналитика', desc: 'Отслеживайте тренды настроения и энергии' },
+        {title: 'Уведомления', desc: 'Получайте ежедневные напоминания о гороскопах' },
+        {title: 'Адаптивный дизайн', desc: 'Работает на всех устройствах' },
+        {title: 'API интеграция', desc: 'Free Horoscope API для актуальных данных' },
       ];
 
       const selectedSign = ref('pisces');
@@ -482,14 +478,18 @@
           isLoggedIn.value = true;
         }
       };
-
-      const getMoodEmoji = (m) => m === 'positive' ? '☻' : m === 'negative' ? '☹' : m === 'warning' ? '⚠︎' : '☹';
       
+      const getMoodEmoji = (mood) => {
+        if (mood === 'positive') return '+';
+        if (mood === 'warning') return '!';
+        return '';
+      };
+
       const getResultText = (score) => {
-        if (score >= 80) return 'Идеальная пара ❤︎';
-        if (score >= 60) return 'Хорошая совместимость .✦ ݁˖';
-        if (score >= 40) return 'Есть потенциал ✶';
-        return 'Сложный союз ⏾';
+        if (score >= 80) return 'Идеальная пара';
+        if (score >= 60) return 'Хорошая совместимость';
+        if (score >= 40) return 'Есть потенциал';
+        return 'Сложный союз';
       };
 
       const fetchHoroscope = async () => {
