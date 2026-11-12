@@ -156,7 +156,7 @@
 
   <div class="container" v-else @click="closeAllDropdowns">
     <div class="header">
-      <div class="logo">Celestial ✨</div>
+      <div class="logo">Celestial</div>
       <div class="nav">
         <div v-for="s in screens" :key="s.id" :class="['nav-item', { active: activeScreen === s.id }]" @click.stop="activeScreen = s.id">{{ s.label }}</div>
       </div>
@@ -164,7 +164,7 @@
       <div class="header-icons">
         <!-- SEARCH -->
         <div class="icon-wrapper" @click.stop>
-          <div class="icon-btn" @click="toggleDropdown('search')">🔍</div>
+          <div class="icon-btn" @click="toggleDropdown('search')"></div>
           <div class="dropdown" v-if="showSearch">
             <input type="text" class="search-input" placeholder="Поиск знака зодиака..." v-model="searchQuery" @click.stop>
             <div class="dropdown-item" v-for="res in searchResults" :key="res.name" @click="selectSearchResult(res.name)">
@@ -332,7 +332,7 @@
     <div class="screen" :class="{ active: activeScreen === 'about' }">
       <h1 class="greeting">О Celestial</h1>
       <div class="card card-dark" style="text-align: center; margin-bottom: 20px;">
-        <div style="font-size: 48px;">✨</div>
+        <div style="font-size: 48px;"></div>
         <div style="font-size: 24px; font-weight: 600; margin: 10px 0;">Celestial Horoscope</div>
         <div style="opacity: 0.8;">Ваш персональный астрологический помощник.</div>
       </div>
